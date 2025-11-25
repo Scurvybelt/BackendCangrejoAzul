@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth, users, eventos, observaciones
+from app.api.v1.endpoints import auth, users, eventos, observaciones, observaciones_naturalista
 
 api_router = APIRouter()
 
@@ -7,3 +7,4 @@ api_router.include_router(auth.router, prefix="/auth", tags=["Autenticación"])
 api_router.include_router(users.router, prefix="/users", tags=["Usuarios"])
 api_router.include_router(eventos.router, prefix="/eventos", tags=["Eventos"])
 api_router.include_router(observaciones.router, prefix="/observaciones", tags=["Observaciones"])
+api_router.include_router(observaciones_naturalista.router, prefix="/observaciones-naturalista", tags=["Observaciones iNaturalist"])
