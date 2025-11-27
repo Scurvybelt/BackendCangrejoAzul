@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.api.v1.api import api_router
+from pathlib import Path
 
 # Importar todos los modelos para que SQLAlchemy los registre
 from app.models.user import User
@@ -31,6 +33,11 @@ app.add_middleware(
 
 # Incluir routers de la API v1
 app.include_router(api_router, prefix="/api/v1")
+
+# Montar directorio de archivos estáticos para uploads
+uploads_dir = Path("uploads")
+uploads_dir.mkdir(exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 @app.get("/")
 async def root():
